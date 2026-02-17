@@ -1,0 +1,246 @@
+$accent-color: #355cc9;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Montserrat", sans-serif;
+  background: #0f1220;
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 18px;
+  padding: 26px;
+}
+
+.card {
+  width: 420px;
+  height: 340px;
+  perspective: 1500px;
+
+  .content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.75, 0, 0.85, 1);
+  }
+}
+
+.more {
+  display: none;
+
+  &:checked ~ .content {
+    transform: rotateY(180deg);
+  }
+}
+
+.front,
+.back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  border-radius: 6px;
+  overflow: hidden;
+
+  .inner {
+    height: 100%;
+    display: grid;
+    padding: 1.5em;
+    transform: translateZ(80px) scale(0.94);
+  }
+}
+
+.front {
+  background-size: cover;
+  background-position: center;
+
+  &:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 6px;
+    backface-visibility: hidden;
+    background: linear-gradient(
+      40deg,
+      rgba(53, 92, 201, 0.65),
+      rgba(0, 0, 0, 0.55)
+    );
+  }
+
+  .inner {
+    grid-template-rows: 1fr auto auto;
+    justify-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  h2 {
+    align-self: end;
+    margin: 0 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #fff;
+    font-weight: 600;
+    text-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+  }
+
+  .rating {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 14px;
+    display: flex;
+    gap: 3px;
+    margin-bottom: 12px;
+  }
+}
+
+.back {
+  transform: rotateY(180deg);
+  background: #fff;
+  border: 2px solid rgb(240, 240, 240);
+
+  .inner {
+    grid-template-rows: auto auto auto 1fr auto auto;
+    grid-template-columns: repeat(3, auto);
+    grid-column-gap: 0.8em;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .location,
+  .price {
+    font-weight: 600;
+    color: $accent-color;
+    font-size: 0.86em;
+    padding-bottom: 10px;
+  }
+
+  .location {
+    grid-column: 1 / 3;
+    justify-self: left;
+  }
+
+  .price {
+    grid-column: 3 / -1;
+    justify-self: right;
+  }
+
+  .info {
+    display: flex;
+    align-items: center;
+    color: $accent-color;
+    position: relative;
+    padding-bottom: 10px;
+
+    &:not(:first-of-type):before {
+      content: "";
+      position: absolute;
+      left: -0.9em;
+      height: 18px;
+      width: 1px;
+      background-color: #ccc;
+    }
+
+    span {
+      font-size: 1.6em;
+      font-weight: 700;
+    }
+
+    .icon {
+      margin-left: 0.35em;
+
+      i {
+        font-size: 1.05em;
+
+        &:before {
+          background: linear-gradient(40deg, $accent-color, rgb(67, 138, 243));
+          -webkit-text-fill-color: transparent;
+          -webkit-background-clip: text;
+        }
+      }
+
+      span {
+        display: block;
+        margin-top: -0.25em;
+        font-size: 0.75em;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .description {
+    grid-row: 4;
+    grid-column: 1 / -1;
+    font-size: 0.9em;
+    font-weight: 600;
+    line-height: 1.4em;
+    color: $accent-color;
+    text-align: center;
+    padding: 0 6px;
+  }
+
+  .buy {
+    grid-row: 5;
+    grid-column: 1 / -1;
+    text-decoration: none;
+    font-weight: 700;
+    color: #fff;
+    background: $accent-color;
+    padding: 10px 14px;
+    border-radius: 4px;
+    transition: 0.2s ease;
+
+    &:hover {
+      filter: brightness(1.08);
+    }
+  }
+}
+
+.button {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0 1.2em;
+  height: 3em;
+  line-height: 2.9em;
+  background-color: transparent;
+  border: solid 2px #fff;
+  color: #fff;
+  border-radius: 4px;
+  text-align: center;
+  backface-visibility: hidden;
+  transition: 0.25s ease-in-out;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+
+  &:hover {
+    background-color: #fff;
+    color: $accent-color;
+    text-shadow: none;
+  }
+
+  &.return {
+    color: $accent-color;
+    border-color: $accent-color;
+    text-shadow: none;
+
+    &:hover {
+      background-color: $accent-color;
+      color: #fff;
+    }
+  }
+}
